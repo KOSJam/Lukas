@@ -2,6 +2,10 @@ package xyz.flaflo.kosjam.engine
 
 class Timer(var targetFps: Int = 120, var targetUps: Int = 120) {
 
+    companion object {
+       private const val ONE_SECOND = 1000.0
+    }
+
     private var frames = 0
     private var updates = 0
 
@@ -9,16 +13,16 @@ class Timer(var targetFps: Int = 120, var targetUps: Int = 120) {
     var currentUps: Int = 0
 
     private var lastTick = System.currentTimeMillis()
-    private var nextTick = lastTick + 1000L
+    private var nextTick = lastTick + ONE_SECOND.toLong()
 
     var deltaUpdate = 0.0
     private var deltaFrame = 0.0
 
     private val updateRate
-        get() = 1000.0 / targetUps
+        get() = ONE_SECOND / targetUps
 
     private val frameRate
-        get() = 1000.0 / targetFps
+        get() = ONE_SECOND / targetFps
 
     fun tick() {
         val currentTime = System.currentTimeMillis()
