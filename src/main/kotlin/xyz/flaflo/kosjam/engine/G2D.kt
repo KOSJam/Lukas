@@ -20,7 +20,7 @@ object G2D : Canvas(), Runnable {
 
         init(window)
 
-        this.setSize(window.width, window.height)
+        setSize(window.width, window.height)
         window.init()
 
         this.window = window
