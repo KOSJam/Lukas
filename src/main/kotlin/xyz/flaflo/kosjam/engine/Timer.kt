@@ -1,6 +1,6 @@
 package xyz.flaflo.kosjam.engine
 
-data class Timer(var targetFps: Int = 120, var targetTps: Int = 120) {
+class Timer(var targetFps: Int = 120, var targetTps: Int = 120) {
 
     private var frames = 0
     private var ticks = 0
