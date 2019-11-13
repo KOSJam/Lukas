@@ -48,7 +48,7 @@ object G2D : Canvas(), Runnable {
 
     override fun run() {
         while (window.isVisible()) {
-            timer.run()
+            timer.tick()
 
             //sleeping 1 millisecond massively reduces cpu usage
             sleep(1)

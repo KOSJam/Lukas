@@ -1,36 +1,36 @@
 package xyz.flaflo.kosjam.engine
 
-class Timer(var targetFps: Int = 120, var targetTps: Int = 120) {
+class Timer(var targetFps: Int = 120, var targetUps: Int = 120) {
 
     private var frames = 0
-    private var ticks = 0
+    private var updates = 0
 
     var currentFps: Int = 0
-    var currentTps: Int = 0
+    var currentUps: Int = 0
 
-    private var lastUpdate = System.currentTimeMillis()
-    private var nextUpdate = lastUpdate + 1000L
+    private var lastTick = System.currentTimeMillis()
+    private var nextTick = lastTick + 1000L
 
     var deltaUpdate = 0.0
     private var deltaFrame = 0.0
 
-    private val tickRate
-        get() = 1000.0 / targetTps
+    private val updateRate
+        get() = 1000.0 / targetUps
 
     private val frameRate
         get() = 1000.0 / targetFps
 
-    fun run() {
+    fun tick() {
         val currentTime = System.currentTimeMillis()
-        val timeDifference = currentTime - lastUpdate
+        val timeDifference = currentTime - lastTick
 
-        lastUpdate = currentTime
+        lastTick = currentTime
 
-        deltaUpdate += timeDifference / tickRate
+        deltaUpdate += timeDifference / updateRate
         deltaFrame += timeDifference / frameRate
 
         while (deltaUpdate >= 1) {
-            ticks++
+            updates++
             G2D.update()
             deltaUpdate--
         }
@@ -41,14 +41,14 @@ class Timer(var targetFps: Int = 120, var targetTps: Int = 120) {
             deltaFrame--
         }
 
-        if (System.currentTimeMillis() >= nextUpdate) {
+        if (System.currentTimeMillis() >= nextTick) {
             currentFps = frames
-            currentTps = ticks
+            currentUps = updates
 
             frames = 0
-            ticks = 0
+            updates = 0
 
-            nextUpdate = System.currentTimeMillis() + 1000
+            nextTick = System.currentTimeMillis() + 1000
         }
     }
 }
